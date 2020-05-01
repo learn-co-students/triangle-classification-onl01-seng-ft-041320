@@ -1,20 +1,19 @@
 class Triangle
-  attr_accessor :side_a, :side_b, :side_c
+  attr_accessor :side_a, :side_b, :side_c, :sides
 
   def initialize(side_a, side_b, side_c)
-    @side_a = side_a
-    @side_b = side_b
-    @side_c = side_c
+    self.side_a = side_a
+    self.side_b = side_b
+    self.side_c = side_c
+    self.sides = [side_a, side_b, side_c].sort
   end
 
   def kind
-    triangle_sides = [@side_a, @side_b, @side_c].sort
-    if triangle_sides.any? { |side| side <= 0 } ||
-      triangle_sides[0] + triangle_sides[1] <= triangle_sides[2]
-        raise TriangleError
-    elsif @side_a + @side_b == 2 * @side_c
+    if sides.any? { |side| side <= 0 } || sides[0] + sides[1] <= sides[2]
+      raise TriangleError
+    elsif side_a == side_b && side_b == side_c
       :equilateral
-    elsif @side_a == @side_b || @side_a == @side_c || @side_c == @side_b
+    elsif side_a == side_b || side_a == side_c || side_b == side_c
       :isosceles
     else
       :scalene
